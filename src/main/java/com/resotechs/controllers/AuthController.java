@@ -37,6 +37,7 @@ public class AuthController {
                     Map<String, String> map = new HashMap<>();
                     String token = tokenService.generateToken(res);
                     map.put("jwt", token);
+                    map.put("userId", String.valueOf(userService.getUserIdByEmail(res.getName())));
                     return new ResponseEntity<>(map, HttpStatus.OK);
                 }
                 return new ResponseEntity<>("Username password did not match", HttpStatus.UNAUTHORIZED);
