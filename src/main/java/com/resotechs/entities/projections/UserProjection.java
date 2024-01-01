@@ -14,13 +14,22 @@ public class UserProjection {
         String getName();
         String getEmail();
         String getPhone();
-        @Value("#{target.tasks.![title]}")
-        List<String> getTasks();
+        @Value("#{target.tasks.size()}")
+        int getTasks();
     }
 
     public interface UserTaskInfo{
         long getId();
         String getEmail();
         List<TaskInfo> getTasks();
+    }
+
+    public interface UserAccountInfo{
+        long getId();
+        String getName();
+        String getEmail();
+        String getPhone();
+        @Value("#{target.active}")
+        boolean isActive();
     }
 }

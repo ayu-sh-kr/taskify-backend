@@ -38,5 +38,13 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("update task t set t.status = ?1 where t.id = ?2")
     int updateStatusById(TaskStatus status, long id);
 
+    @Query("select count(t) from task t")
+    int getTaskCount();
+
+    @Query("select count(t) from task t where t.user.id = ?1")
+    int getTaskCountByUser_Id(long userId);
+
+    @Query("select count(t) from task t where t.user.id = ?2 and t.status = ?1")
+    int getTaskCountByStatusAndUser_Id(TaskStatus status, long userId);
 
 }

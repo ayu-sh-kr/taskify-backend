@@ -85,4 +85,17 @@ public class UserService {
         }
         return -1;
     }
+
+    public ResponseEntity<?> updateAccountStatus(String email, boolean status){
+        try {
+            if(userRepository.existsByEmail(email)){
+                userRepository.updateActiveByEmail(status, email);
+                return new ResponseEntity<>("Status updated", HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>("Invalid email", HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

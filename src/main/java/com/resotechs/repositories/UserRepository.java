@@ -3,6 +3,7 @@ package com.resotechs.repositories;
 import com.resotechs.entities.Task;
 import com.resotechs.entities.User;
 import com.resotechs.entities.projections.UserProjection;
+import com.resotechs.enums.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from user_details u")
     List<UserProjection.UserInfo> findAllUsers();
 
+    @Query("select count(u) from user_details u")
+    int getAccountCount();
+
+    @Query("select count(u) from user_details u where u.active = true")
+    int getActiveAccountCount();
+
+    @Query("select count(u) from user_details u where u.active = false")
+    int getDeactivateAccountCount();
+
+    List<UserProjection.UserAccountInfo> findByRoleType(RoleType roleType);
 }
