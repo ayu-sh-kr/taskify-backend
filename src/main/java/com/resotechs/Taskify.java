@@ -76,7 +76,7 @@ public class Taskify implements CommandLineRunner {
                                 .name("user1")
                                 .email("user1@gmail.com")
                                 .active(false)
-                                .password("test")
+                                .password(passwordEncoder.encode("test"))
                                 .roleType(RoleType.USER)
                                 .phone("0000000000")
                                 .build(),
@@ -85,7 +85,7 @@ public class Taskify implements CommandLineRunner {
                                 .email("user2@gmail.com")
                                 .active(false)
                                 .roleType(RoleType.USER)
-                                .password("test")
+                                .password(passwordEncoder.encode("test"))
                                 .phone("0000000002")
                                 .build(),
                         User.builder()
@@ -93,7 +93,7 @@ public class Taskify implements CommandLineRunner {
                                 .email("admin@gmail.com")
                                 .active(true)
                                 .roleType(RoleType.ADMIN)
-                                .password("admin")
+                                .password(passwordEncoder.encode("admin"))
                                 .phone("0000000003")
                                 .build()
 
