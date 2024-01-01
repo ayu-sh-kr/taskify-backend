@@ -78,4 +78,11 @@ public class UserService {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public long getUserIdByEmail(String email){
+        if(userRepository.existsByEmail(email)){
+            return userRepository.findByEmail(email).getId();
+        }
+        return -1;
+    }
 }
