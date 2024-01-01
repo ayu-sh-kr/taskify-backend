@@ -3,6 +3,7 @@ package com.resotechs.services.business;
 import com.resotechs.dtos.TaskDto;
 import com.resotechs.entities.Task;
 import com.resotechs.entities.User;
+import com.resotechs.enums.TaskStatus;
 import com.resotechs.repositories.TaskRepository;
 import com.resotechs.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -87,7 +88,30 @@ public class TaskService {
             }else
                 return new ResponseEntity<>("No such user or task exists", HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<?> updateStatusById(long taskId, long userId, String status){
+        try {
+            if(taskRepository.existsByIdAndUser_Id(taskId, userId) && validStatus(status)){
+                int k = taskRepository.updateStatusById(TaskStatus.valueOf(status), taskId);
+                if(k > 0){
+                    return new ResponseEntity<>("Status Updated Successfully", HttpStatus.OK);
+                }
+            }
+            return new ResponseEntity<>("Fail to update Status", HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private boolean validStatus(String status){
+        try {
+            TaskStatus.valueOf(status);
+            return true;
+        }catch (Exception e){
+            return false;
         }
     }
 }

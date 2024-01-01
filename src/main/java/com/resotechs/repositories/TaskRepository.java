@@ -2,6 +2,7 @@ package com.resotechs.repositories;
 
 import com.resotechs.entities.Task;
 import com.resotechs.entities.projections.TaskProjection;
+import com.resotechs.enums.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +32,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Modifying
     @Query("update task t set t.description = ?1 where t.id = ?2")
     int updateDescriptionById(String description, long id);
+
+    @Transactional
+    @Modifying
+    @Query("update task t set t.status = ?1 where t.id = ?2")
+    int updateStatusById(TaskStatus status, long id);
 
 
 }
