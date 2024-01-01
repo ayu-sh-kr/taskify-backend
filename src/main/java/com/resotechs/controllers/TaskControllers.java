@@ -31,4 +31,9 @@ public class TaskControllers {
     public ResponseEntity<?> updateTaskByUser(@RequestParam("userId") long userId, @RequestParam("taskId") long taskId, @RequestBody TaskDto taskDto){
         return taskService.updateTaskById(taskId, userId, taskDto);
     }
+
+    @PatchMapping("/update/status")
+    public ResponseEntity<?> updateStatusByUser(@RequestParam("userId") long userId, @RequestParam("taskId") long taskId, @RequestBody String status){
+        return taskService.updateStatusById(taskId, userId, status);
+    }
 }

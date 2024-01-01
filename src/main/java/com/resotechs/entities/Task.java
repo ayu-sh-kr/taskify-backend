@@ -1,5 +1,6 @@
 package com.resotechs.entities;
 
+import com.resotechs.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,9 @@ public class Task {
     private long id;
     private String title;
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status = TaskStatus.Pending;
 
     @ManyToOne
     private User user;

@@ -11,6 +11,9 @@ public class TaskProjection {
         @Value("#{target.title}")
         String getTitle();
 
+        @Value("#{target.status.name()}")
+        String getStatus();
+
         @Value("#{target.description}")
         String getDescription();
     }
