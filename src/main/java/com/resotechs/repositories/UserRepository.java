@@ -41,4 +41,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int getDeactivateAccountCount();
 
     List<UserProjection.UserAccountInfo> findByRoleType(RoleType roleType);
+
+    @Query("select u from  user_details u where u.id = ?1")
+    List<UserProjection.UserAccountInfo> findUserInfoById(long usedId);
 }

@@ -31,4 +31,9 @@ public class UserController {
     public ResponseEntity<?> activateAccount(@RequestBody String email){
         return userService.enableAccount(email);
     }
+
+    @GetMapping("/user-info")
+    public ResponseEntity<?> getProfileData(@RequestParam("userId") long id){
+        return userService.getUserDetails(id);
+    }
 }
